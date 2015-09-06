@@ -43,3 +43,4 @@ build.log
 #other
 .DS*
 .cache*
+.worksheet
