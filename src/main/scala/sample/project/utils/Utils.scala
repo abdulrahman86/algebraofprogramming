@@ -22,14 +22,18 @@ package object MyUtils
 	}
 
 	def takeNUsingFold[A] (l: List[A]) : (Int => List[A]) = {
-  
-    fold[A, Int => List[A]] (_ => List(), 
-        (a, b) => (n) => {if (n > 0) a :: b(n-1) else List()})(l)
+
+		fold[A, Int => List[A]] (_ => List(), 
+				(a, b) => (n) => {if (n > 0) a :: b(n-1) else List()})(l)
 
 	}
-  
-  def dropNUsingFold[A] (l: List[A]) : (Int => List[A]) = {
-    fold[A, Int => List[A]] (_ => List(), 
-        (a, b) => (n) => {if (n > 0) b(n -1) else a :: b(n - 1)})(l)
-  }
+
+	def dropNUsingFold[A] (l: List[A]) : (Int => List[A]) = {
+		fold[A, Int => List[A]] (_ => List(), 
+				(a, b) => (n) => {if (n > 0) b(n -1) else a :: b(n - 1)})(l)
+	}
+
+	def curry[A, B, C] (f : (A, B) => C) : A => B => C= {
+			(a : A) => (b : B) => f(a, b)
+	}
 }
