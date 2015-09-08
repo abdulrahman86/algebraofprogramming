@@ -86,6 +86,9 @@ package object MyUtils
 			treeFold[A, Int](_ => 1, _ + _)(in)
 	}
 
+  /**
+   * fold operation for general trees
+   */
 	def gTreeFold[A, B](f: A => B, g: (List[B]) => B)(in: gtree[A]) : B = {
 
 			def getTreesFromListl[A](list: Listl[gtree[A]]) : List[gtree[A]] = {
@@ -102,6 +105,9 @@ package object MyUtils
 			}
 	}
 
+  /**
+   * map operation for general trees
+   */
 	def gTreeMap[A, B](f: A => B)(in: gtree[A]): gtree[B] ={
 
 			def makeListl[B](list: List[gtree[B]]) : Listl[gtree[B]] = {
@@ -124,11 +130,22 @@ package object MyUtils
 					(list: List[gtree[B]]) => node(list.head.Value, makeListl(list)))(in)
 	}
 
+  /**
+   * size operation for general trees
+   */
 	def gTreeSize[A](in: gtree[A]) : Int = {
 			gTreeFold[A, Int](x => 1, l => l.fold(0)(_ + _))(in)
 	}
 
+  /**
+   * depth operation for general trees.
+   */
 	def gTreeDepth[A](in: gtree[A]) : Int = {
 			gTreeFold[A, Int](x => 1, l => 1 + l.tail.foldLeft(0)(math.max(_, _)))(in)
+	}
+
+	def zipCurryWithFold[A, B](list1: List[A])(list2: List[B]) : List[(A, B)] = {
+  list1.foldRight((a: List[B]) => List[(A, B)]())((a: A, b: List[B] => List[(A,B)]) => 
+    {(in: List[B]) => if (in.size == 0) List() else (a, in.head) :: b(in.tail)})(list2)
 	}
 }

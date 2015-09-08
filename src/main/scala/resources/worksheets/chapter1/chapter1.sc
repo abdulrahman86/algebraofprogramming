@@ -42,5 +42,8 @@ object chapter1
  
  gTreeDepth[Int](node(1, snoc(snoc(NilListl, node(1, NilListl)), node(10, snoc(NilListl, node(1, snoc(NilListl, node(1, NilListl))))))))
                                                   //> res10: Int = 4
+                                                  
+ zipCurryWithFold[Int, Char](List(1, 2, 3, 4, 5, 6))(List('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'))
+                                                  //> res11: List[(Int, Char)] = List((1,A), (2,B), (3,C), (4,D), (5,E), (6,F))
                             
 }
